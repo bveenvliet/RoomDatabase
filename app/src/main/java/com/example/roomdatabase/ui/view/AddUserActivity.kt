@@ -2,28 +2,23 @@ package com.example.roomdatabase.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.example.roomdatabase.R
+import com.example.roomdatabase.databinding.ActivityAddUserBinding
 
 class AddUserActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_user)
-
-        val etFirstName = findViewById<EditText>(R.id.etFirstName)
-        val etLastName = findViewById<EditText>(R.id.etLastName)
-        val etImageUrl = findViewById<EditText>(R.id.etImageUrl)
+        // setup view binding
+        val binding = ActivityAddUserBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // create add button handler
-        val btnAdd = findViewById<Button>(R.id.btnAdd)
-        btnAdd.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             val returnIntent = Intent()
-            returnIntent.putExtra(FIRST_NAME, etFirstName.text.toString())
-            returnIntent.putExtra(LAST_NAME, etLastName.text.toString())
-            returnIntent.putExtra(URL, etImageUrl.text.toString())
+            returnIntent.putExtra(FIRST_NAME, binding.etFirstName.text.toString())
+            returnIntent.putExtra(LAST_NAME, binding.etLastName.text.toString())
+            returnIntent.putExtra(URL, binding.etImageUrl.text.toString())
             setResult(RESULT_OK, returnIntent)
             finish()
         }

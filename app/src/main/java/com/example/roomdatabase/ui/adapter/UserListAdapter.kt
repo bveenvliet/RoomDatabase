@@ -1,45 +1,39 @@
 package com.example.roomdatabase.ui.adapter
 
-import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.roomdatabase.R
 import com.example.roomdatabase.data.User
+import com.example.roomdatabase.databinding.UserItemBinding
 
 class UserListAdapter internal constructor(
-    context: Context
 ) : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
 
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var users = emptyList<User>() // Cached copy of users
 
-    inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val firstNameItemView: TextView = itemView.findViewById(R.id.tvFirstName)
-        val lastNameItemView: TextView = itemView.findViewById(R.id.tvLastName)
-        val urlImageItemView: ImageView = itemView.findViewById(R.id.ivAvatar)
-        val clUserItem: ConstraintLayout = itemView.findViewById(R.id.clUserItem)
+    class UserViewHolder(private val itemBinding: UserItemBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
+        fun bind(user: User) {
+            itemBinding.run {
+                ivAvatar.load(user.url)
+                tvFirstName.text = user.firstName
+                tvLastName.text = user.lastName
+                clUserItem.setBackgroundColor(if (adapterPosition % 2 == 0) Color.WHITE else Color.LTGRAY)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val itemView = inflater.inflate(R.layout.user_item, parent, false)
-        return UserViewHolder(itemView)
+        val itemBinding =
+            UserItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UserViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val current = users[position]
-        holder.run {
-            firstNameItemView.text = current.firstName
-            lastNameItemView.text = current.lastName
-            urlImageItemView.load(current.url)
-            clUserItem.setBackgroundColor(if (position % 2 == 0) Color.WHITE else Color.LTGRAY)
-        }
+        holder.bind(current)
     }
 
     override fun getItemCount(): Int = users.size

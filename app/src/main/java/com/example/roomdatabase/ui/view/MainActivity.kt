@@ -6,12 +6,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.roomdatabase.R
 import com.example.roomdatabase.data.User
+import com.example.roomdatabase.databinding.ActivityMainBinding
 import com.example.roomdatabase.ui.adapter.UserListAdapter
 import com.example.roomdatabase.ui.viewmodel.UserViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,13 +17,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        // setup view binding
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // setup recyclerview
-        val recyclerView = findViewById<RecyclerView>(R.id.rvUsers)
-        val adapter = UserListAdapter(this)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = UserListAdapter()
+        binding.rvUsers.adapter = adapter
+        binding.rvUsers.layoutManager = LinearLayoutManager(this)
 
         // setup the users view model
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
@@ -37,8 +36,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         // add fab click handler
-        val fabAdd: FloatingActionButton = findViewById(R.id.fabAdd)
-        fabAdd.setOnClickListener {
+        binding.fabAdd.setOnClickListener {
             val addUserActivityIntent = Intent(it.context, AddUserActivity::class.java)
             startForResult.launch(addUserActivityIntent)
         }
