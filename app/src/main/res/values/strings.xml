@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Room Database</string>
+    <string name="add_user_button">Add user button</string>
+    <string name="add_user_title">Add User</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="image_url">Image URL</string>
+    <string name="submit">Submit</string>
+    <string name="sample_first_name">Buzz</string>
+    <string name="sample_last_name" tools:ignore="Typos">Lightyear</string>
+    <string name="sample_image_url">https://media.makeameme.org/created/samples-samples.jpg</string>
+    <string name="picture_of_the_person">Picture of the person</string>
+</resources>
