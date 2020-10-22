@@ -2,6 +2,8 @@ package com.example.roomdatabase.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -35,11 +37,20 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        // add pull to refresh handler (with fake 2 second pause)
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.swipeRefresh.isRefreshing = false
+            }, 2000)
+        }
+
         // add fab click handler
         binding.fabAdd.setOnClickListener {
             val addUserActivityIntent = Intent(it.context, AddUserActivity::class.java)
             startForResult.launch(addUserActivityIntent)
         }
+
     }
 
     // handle the return result from the add user activity
