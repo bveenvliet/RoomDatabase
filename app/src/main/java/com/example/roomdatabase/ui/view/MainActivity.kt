@@ -29,13 +29,13 @@ class MainActivity : AppCompatActivity() {
         binding.rvUsers.layoutManager = LinearLayoutManager(this)
 
         // setup the users view model
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.allUsersCached.observe(this, { words ->
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        userViewModel.allUsersCached.observe(this) { words ->
             // Update the cached copy of the words in the adapter.
             words?.let {
                 adapter.setUsers(it)
             }
-        })
+        }
 
         // add pull to refresh handler (with fake 2 second pause)
         binding.swipeRefresh.setOnRefreshListener {
