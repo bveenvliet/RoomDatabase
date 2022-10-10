@@ -75,7 +75,7 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     // coil image loading library for kotlin
-    implementation("io.coil-kt:coil:1.0.0-rc3")
+    implementation("io.coil-kt:coil:2.2.2")
 
     // for android activity extensions
     def activityVersion = "1.6.0"
