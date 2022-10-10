@@ -33,8 +33,11 @@ android {
         jvmTarget = '11'
     }
     packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
+        resources {
+            excludes += ['META-INF/atomicfu.kotlin_module']
+        }
     }
+    namespace 'com.example.roomdatabase'
 }
 
 dependencies {
